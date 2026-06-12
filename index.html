@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zeph skills catalog</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+  h1 { font-size: 1.5rem; }
+  .skill { border: 1px solid color-mix(in srgb, currentColor 20%, transparent); border-radius: 12px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .skill h2 { font-size: 1.1rem; margin: 0 0 .25rem; }
+  .version { font-weight: normal; opacity: .6; font-size: .9rem; }
+  .badge { font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; border: 1px solid currentColor; border-radius: 999px; padding: .1rem .5rem; vertical-align: middle; }
+  pre { background: color-mix(in srgb, currentColor 8%, transparent); padding: .5rem .75rem; border-radius: 8px; overflow-x: auto; font-size: .85rem; }
+  .screens { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .screens img { border-radius: 12px; border: 1px solid color-mix(in srgb, currentColor 20%, transparent); }
+  figure { margin: 0; }
+  figcaption { font-size: .75rem; opacity: .6; text-align: center; }
+  .meta { font-size: .85rem; opacity: .7; }
+  footer { margin: 2rem 0; font-size: .8rem; opacity: .6; }
+</style>
+</head>
+<body>
+<h1>Zeph skills catalog</h1>
+<p>Agent skills for the Zeph device — install with <code>npx skills add zephclick/skills/&lt;name&gt;</code>
+or from the Zeph companion's Skills tab. Machine-readable index: <a href="index.json">index.json</a>.</p>
+
+    <article class="skill">
+      <h2>zeph-device <span class="version">v1.0.0</span> <span class="badge">device</span></h2>
+      <p>Control a Zeph device through the companion's MCP server - read device state, change settings, push screens to the device, receive button intents, and register your own device app. Use when a task involves a Zeph device, glances, pushed device UI, or device-button round trips.</p>
+      
+      <pre><code>npx skills add zephclick/skills/zeph-device</code></pre>
+      <div class="screens"><figure><img src="thumbs/zeph-device/deploy-confirm.png" alt="deploy-confirm on the device" width="138" height="168" loading="lazy"><figcaption>deploy-confirm</figcaption></figure></div>
+      <p class="meta"><a href="skills/zeph-device/SKILL.md">SKILL.md</a> · 2 file(s)</p>
+    </article>
+<footer>Generated 2026-06-12T08:39:03.895Z.</footer>
+</body>
+</html>

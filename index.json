@@ -1,0 +1,29 @@
+{
+  "generated": "2026-06-12T09:20:44.510Z",
+  "skills": [
+    {
+      "id": "zeph-device",
+      "version": "1.0.0",
+      "description": "Control a Zeph device through the companion's MCP server - read device state, change settings, push screens to the device, receive button intents, and register your own device app. Use when a task involves a Zeph device, glances, pushed device UI, or device-button round trips.",
+      "zeph": {
+        "device": true,
+        "requires": [],
+        "capabilities": [
+          "zui.v12",
+          "notify.v2"
+        ]
+      },
+      "files": [
+        "SKILL.md",
+        "screens/deploy-confirm.json"
+      ],
+      "screens": [
+        {
+          "name": "deploy-confirm",
+          "thumb": "thumbs/zeph-device/deploy-confirm.png"
+        }
+      ],
+      "install": "npx skills add zephclick/skills/zeph-device"
+    }
+  ]
+}

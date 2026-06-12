@@ -1,0 +1,10 @@
+{ "k": "pageview", "c": [
+  { "k": "box", "c": [
+    { "k": "text", "t": "Pick an environment" },
+    { "k": "choice", "id": "env", "c": [
+      { "k": "text", "id": "staging", "t": "Staging" },
+      { "k": "text", "id": "prod", "t": "Production" } ] } ] },
+  { "k": "box", "c": [ { "k": "text", "t": "14 commits - rollback ready" } ] },
+  { "k": "box", "c": [
+    { "k": "btn", "id": "confirm_deploy", "t": "Deploy",
+      "role": "submit", "key": "up" } ] } ] }
