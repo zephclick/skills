@@ -1,0 +1,17 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "text",
+      "t": "Ready to deploy"
+    },
+    {
+      "k": "btn",
+      "id": "go",
+      "t": "Deploy",
+      "ic": "play",
+      "role": "submit",
+      "key": "up"
+    }
+  ]
+}

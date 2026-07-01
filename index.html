@@ -12,6 +12,7 @@
   .skill h2 { font-size: 1.1rem; margin: 0 0 .25rem; }
   .version { font-weight: normal; opacity: .6; font-size: .9rem; }
   .badge { font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; border: 1px solid currentColor; border-radius: 999px; padding: .1rem .5rem; vertical-align: middle; }
+  .badge.no { color: light-dark(#9a3412, #fdba74); }
   pre { background: color-mix(in srgb, currentColor 8%, transparent); padding: .5rem .75rem; border-radius: 8px; overflow-x: auto; font-size: .85rem; }
   .screens { display: flex; gap: 1rem; flex-wrap: wrap; }
   .screens img { border-radius: 12px; border: 1px solid color-mix(in srgb, currentColor 20%, transparent); }
@@ -19,21 +20,28 @@
   figcaption { font-size: .75rem; opacity: .6; text-align: center; }
   .meta { font-size: .85rem; opacity: .7; }
   footer { margin: 2rem 0; font-size: .8rem; opacity: .6; }
+  table { border-collapse: collapse; font-size: .85rem; width: 100%; }
+  th, td { border: 1px solid color-mix(in srgb, currentColor 20%, transparent); padding: .3rem .5rem; text-align: left; vertical-align: top; }
+  .widget { border: 1px solid color-mix(in srgb, currentColor 20%, transparent); border-radius: 12px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .widget h2 { font-size: 1.1rem; margin: 0 0 .25rem; font-family: ui-monospace, monospace; }
+  .widget .body { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .widget .text { flex: 1 1 360px; min-width: 0; }
+  .widget img { border-radius: 12px; border: 1px solid color-mix(in srgb, currentColor 20%, transparent); flex: 0 0 auto; }
 </style>
 </head>
 <body>
 <h1>Zeph skills catalog</h1>
 <p>Agent skills for the Zeph device — install with <code>npx skills add zephclick/skills/&lt;name&gt;</code>
-or from the Zeph companion's Skills tab. Machine-readable index: <a href="index.json">index.json</a>.</p>
+or from the Zeph companion's Skills tab. Machine-readable index: <a href="index.json">index.json</a>. Pushed-UI building blocks: <a href="widgets.html">the zui widget reference</a>.</p>
 
     <article class="skill">
-      <h2>zeph-device <span class="version">v1.0.0</span> <span class="badge">device</span></h2>
+      <h2>zeph-device <span class="version">v1.1.0</span> <span class="badge">device</span></h2>
       <p>Control a Zeph device through the companion's MCP server - read device state, change settings, push screens to the device, receive button intents, and register your own device app. Use when a task involves a Zeph device, glances, pushed device UI, or device-button round trips.</p>
       
       <pre><code>npx skills add zephclick/skills/zeph-device</code></pre>
       <div class="screens"><figure><img src="thumbs/zeph-device/deploy-confirm.png" alt="deploy-confirm on the device" width="138" height="168" loading="lazy"><figcaption>deploy-confirm</figcaption></figure></div>
-      <p class="meta"><a href="skills/zeph-device/SKILL.md">SKILL.md</a> · 2 file(s)</p>
+      <p class="meta"><a href="skills/zeph-device/SKILL.md">SKILL.md</a> · 75 file(s)</p>
     </article>
-<footer>Generated 2026-06-12T08:39:03.895Z.</footer>
+<footer>Generated 2026-07-01T12:39:13.146Z.</footer>
 </body>
 </html>

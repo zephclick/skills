@@ -1,0 +1,29 @@
+{
+  "title": "Ring",
+  "summary": "Single progress ring (full-circle arc).",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "value",
+      "key": "v",
+      "type": "uint",
+      "notes": "0-100 arc fill."
+    },
+    {
+      "name": "label",
+      "key": "t",
+      "type": "string",
+      "notes": "Center label (v13 #358)."
+    },
+    {
+      "name": "caption",
+      "key": "sub",
+      "type": "string",
+      "notes": "Caption under the ring (v13 #358)."
+    }
+  ],
+  "notes": [
+    "The zui.h size field has no CBOR key - wire rings render 92px.",
+    "v13 #358: t/sub are on the wire now; pre-v13 decoders skip them (unlabeled ring)."
+  ]
+}

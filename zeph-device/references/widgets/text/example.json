@@ -1,0 +1,9 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "text",
+      "t": "Plain body text wraps at the display edge of the 1.8 inch screen."
+    }
+  ]
+}

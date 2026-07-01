@@ -1,0 +1,28 @@
+{
+  "title": "Picker",
+  "summary": "Value-row that opens a full-screen select.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "title",
+      "key": "t",
+      "type": "string",
+      "notes": "Row label."
+    },
+    {
+      "name": "options",
+      "key": "opts",
+      "type": "array of strings",
+      "notes": "The full-screen select options (max 16)."
+    },
+    {
+      "name": "selected",
+      "key": "sel",
+      "type": "uint",
+      "notes": "Current option index, shown as the trailing value; out-of-range shows empty."
+    }
+  ],
+  "notes": [
+    "In pushed docs prefer `choice` when the pick itself is the interaction - picker needs the device picker overlay hook for the full-screen select."
+  ]
+}

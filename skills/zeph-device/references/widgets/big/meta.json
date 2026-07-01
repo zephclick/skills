@@ -1,0 +1,13 @@
+{
+  "title": "Big",
+  "summary": "Large display text - the one-glance payload (1-3 words).",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "text",
+      "key": "t",
+      "type": "string",
+      "notes": "The display text (large font)."
+    }
+  ]
+}

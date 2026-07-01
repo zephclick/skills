@@ -1,0 +1,31 @@
+{
+  "title": "Toggle",
+  "summary": "Standalone labeled switch card (title + subtitle left, switch right; whole-row tap flips).",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "title",
+      "key": "t",
+      "type": "string",
+      "notes": "Switch label."
+    },
+    {
+      "name": "subtitle",
+      "key": "sub",
+      "type": "string",
+      "notes": "Secondary line under the label."
+    },
+    {
+      "name": "on",
+      "key": "on",
+      "type": "uint",
+      "notes": "Initial state: 1 = on."
+    },
+    {
+      "name": "live",
+      "key": "live",
+      "type": "bool",
+      "notes": "v12: with an `id`, stream flips as widget events. JSON `live: true`; wire key `lv`."
+    }
+  ]
+}

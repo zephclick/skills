@@ -1,0 +1,13 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "text",
+      "t": "Step 2 of 5 - migrations"
+    },
+    {
+      "k": "progress",
+      "v": 40
+    }
+  ]
+}

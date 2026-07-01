@@ -1,0 +1,52 @@
+{
+  "title": "Widget card",
+  "summary": "Generic data card (gauge/chart/progress/label variants).",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "variant",
+      "key": "var",
+      "type": "uint",
+      "notes": "0 gauge, 1 chart, 2 progress, 3 label, 4 combo; out-of-range is ignored (gauge)."
+    },
+    {
+      "name": "title",
+      "key": "t",
+      "type": "string",
+      "notes": "Mono caption above the body."
+    },
+    {
+      "name": "value",
+      "key": "v",
+      "type": "uint",
+      "notes": "0-100; drives the gauge arc / progress bar."
+    },
+    {
+      "name": "value string",
+      "key": "val",
+      "type": "string",
+      "notes": "Big value line under the body (any unit text)."
+    },
+    {
+      "name": "bars",
+      "key": "bars",
+      "type": "array of uints",
+      "notes": "Chart variant: bar values 0-100 (max 16)."
+    },
+    {
+      "name": "subtitle",
+      "key": "sub",
+      "type": "string",
+      "notes": "Mono footer line."
+    },
+    {
+      "name": "icon",
+      "key": "ic",
+      "type": "string",
+      "notes": "Lucide icon (label/combo variants only)."
+    }
+  ],
+  "notes": [
+    "The C-side `color` field has no renderer arm and stays unwired."
+  ]
+}

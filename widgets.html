@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zui widget reference — Zeph skills catalog</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+  h1 { font-size: 1.5rem; }
+  .skill { border: 1px solid color-mix(in srgb, currentColor 20%, transparent); border-radius: 12px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .skill h2 { font-size: 1.1rem; margin: 0 0 .25rem; }
+  .version { font-weight: normal; opacity: .6; font-size: .9rem; }
+  .badge { font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; border: 1px solid currentColor; border-radius: 999px; padding: .1rem .5rem; vertical-align: middle; }
+  .badge.no { color: light-dark(#9a3412, #fdba74); }
+  pre { background: color-mix(in srgb, currentColor 8%, transparent); padding: .5rem .75rem; border-radius: 8px; overflow-x: auto; font-size: .85rem; }
+  .screens { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .screens img { border-radius: 12px; border: 1px solid color-mix(in srgb, currentColor 20%, transparent); }
+  figure { margin: 0; }
+  figcaption { font-size: .75rem; opacity: .6; text-align: center; }
+  .meta { font-size: .85rem; opacity: .7; }
+  footer { margin: 2rem 0; font-size: .8rem; opacity: .6; }
+  table { border-collapse: collapse; font-size: .85rem; width: 100%; }
+  th, td { border: 1px solid color-mix(in srgb, currentColor 20%, transparent); padding: .3rem .5rem; text-align: left; vertical-align: top; }
+  .widget { border: 1px solid color-mix(in srgb, currentColor 20%, transparent); border-radius: 12px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .widget h2 { font-size: 1.1rem; margin: 0 0 .25rem; font-family: ui-monospace, monospace; }
+  .widget .body { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .widget .text { flex: 1 1 360px; min-width: 0; }
+  .widget img { border-radius: 12px; border: 1px solid color-mix(in srgb, currentColor 20%, transparent); flex: 0 0 auto; }
+</style>
+</head>
+<body>
+<h1>zui widget reference</h1>
+<p><a href="index.html">&larr; skills catalog</a></p>
+<p>The pushed-UI JSON IR, one entry per kind (36 kinds, 35 streamable) —
+every field shown decodes on the device, every example is rendered through the
+device UI stack exactly as <code>push_screen</code> / <code>notify</code> would.
+Machine-readable: <a href="widgets.json">widgets.json</a>.</p>
+<p class="meta">Kinds marked <strong>not streamable</strong> carry their content in
+fields without wire keys yet — they parse but render empty; never push them standalone.</p>
+
+    <article class="widget" id="screen">
+      <h2>screen <span class="version">k=0</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Screen — Full-screen root: a layout template + a column of children. The usual root of a push_screen tree.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>title</td><td><code>t</code></td><td>string</td><td>Screen title; rendered by the foundation/list/pinned layouts (suppressed when room chrome owns the title).</td></tr><tr><td>layout</td><td><code>lyt</code></td><td>uint</td><td>0 = foundation (safe-area scrolling column, default), 1 = centered, 2 = list (sticky title + rows), 3 = pinned (scrolling content + fixed bottom CTA).</td></tr><tr><td>children</td><td><code>c</code></td><td>array</td><td>Child nodes, rendered top to bottom into the layout slot.</td></tr></table>
+          <p class="meta">The pinned layout's fixed bottom CTA (zui.h screen.cta) has no CBOR key - lyt 3 over the wire renders without a bottom CTA.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;t&quot;: &quot;Deploy&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Pick an environment on the next page&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/screen.png" alt="screen rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="gap">
+      <h2>gap <span class="version">k=1</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Gap — Fixed vertical spacer between siblings.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>height</td><td><code>h</code></td><td>uint</td><td>Height in px; 0/omitted = theme default spacing.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Above the gap&quot;
+    },
+    {
+      &quot;k&quot;: &quot;gap&quot;,
+      &quot;h&quot;: 32
+    },
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Below the gap&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/gap.png" alt="gap rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="text">
+      <h2>text <span class="version">k=2</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Text — Body text line; wraps at the display edge.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>text</td><td><code>t</code></td><td>string</td><td>The text. Wraps full-width; alignment follows the layout (centered template centers it).</td></tr></table>
+          <p class="meta">The zui.h color/center fields have no CBOR keys.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Plain body text wraps at the display edge of the 1.8 inch screen.&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/text.png" alt="text rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="title">
+      <h2>title <span class="version">k=3</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Title — Large heading text.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>text</td><td><code>t</code></td><td>string</td><td>The heading text (large UI font).</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;title&quot;,
+      &quot;t&quot;: &quot;Build finished&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/title.png" alt="title rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="eyebrow">
+      <h2>eyebrow <span class="version">k=4</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Eyebrow — Small uppercase context line (pixel-blue mono accent) above the payload.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>text</td><td><code>t</code></td><td>string</td><td>The context line. Keep it UPPERCASE and short.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;lyt&quot;: 1,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;eyebrow&quot;,
+      &quot;t&quot;: &quot;BUILD&quot;
+    },
+    {
+      &quot;k&quot;: &quot;big&quot;,
+      &quot;t&quot;: &quot;Green&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/eyebrow.png" alt="eyebrow rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="big">
+      <h2>big <span class="version">k=5</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Big — Large display text - the one-glance payload (1-3 words).</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>text</td><td><code>t</code></td><td>string</td><td>The display text (large font).</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;lyt&quot;: 1,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;big&quot;,
+      &quot;t&quot;: &quot;64%&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/big.png" alt="big rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="list">
+      <h2>list <span class="version">k=6</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>List — Vertical column of children - typically row nodes (a swipe-up page).</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>children</td><td><code>c</code></td><td>array</td><td>Child nodes (usually rows).</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;list&quot;,
+      &quot;c&quot;: [
+        {
+          &quot;k&quot;: &quot;row&quot;,
+          &quot;t&quot;: &quot;zeph&quot;,
+          &quot;ic&quot;: &quot;folder&quot;,
+          &quot;cv&quot;: 1
+        },
+        {
+          &quot;k&quot;: &quot;row&quot;,
+          &quot;t&quot;: &quot;companion&quot;,
+          &quot;ic&quot;: &quot;folder&quot;,
+          &quot;cv&quot;: 1
+        }
+      ]
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/list.png" alt="list rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="row">
+      <h2>row <span class="version">k=7</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Row — The standard list cell: leading icon, title (+ subtitle), trailing switch or chevron.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>title</td><td><code>t</code></td><td>string</td><td>Cell title.</td></tr><tr><td>icon</td><td><code>ic</code></td><td>string</td><td>Leading Lucide icon name (device icon subset).</td></tr><tr><td>subtitle</td><td><code>sub</code></td><td>string</td><td>Secondary line under the title.</td></tr><tr><td>toggle</td><td><code>tg</code></td><td>uint</td><td>1 = trailing switch (whole-row tap flips it).</td></tr><tr><td>on</td><td><code>on</code></td><td>uint</td><td>Initial switch state when tg = 1.</td></tr><tr><td>chevron</td><td><code>cv</code></td><td>uint</td><td>1 = trailing chevron.</td></tr><tr><td>page ref</td><td><code>pg</code></td><td>string</td><td>Swipe-up page ref (&quot;app.export&quot;): tap opens that page (v13 #358).</td></tr><tr><td>spinner</td><td><code>sp</code></td><td>uint</td><td>1 = leading live arc spinner replaces the icon (working glyph, v13 #358).</td></tr></table>
+          <p class="meta">The zui.h trailing value (val), icon color and custom icon image fields have no CBOR keys.</p><p class="meta">v13 #358: pg rows also render a trailing chevron; pre-v13 decoders skip pg/sp (inert row).</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;row&quot;,
+      &quot;t&quot;: &quot;Wi-Fi&quot;,
+      &quot;ic&quot;: &quot;wifi&quot;,
+      &quot;sub&quot;: &quot;Connected&quot;,
+      &quot;tg&quot;: 1,
+      &quot;on&quot;: 1
+    },
+    {
+      &quot;k&quot;: &quot;row&quot;,
+      &quot;t&quot;: &quot;auth refactor&quot;,
+      &quot;sub&quot;: &quot;working&quot;,
+      &quot;sp&quot;: 1,
+      &quot;pg&quot;: &quot;claude_code.sessions&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/row.png" alt="row rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="btn">
+      <h2>btn <span class="version">k=8</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Button — Pill button: label + optional icon, variant/size/color styling, v12 role + physical-key binding.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>label</td><td><code>t</code></td><td>string</td><td>One line. Max 24 ASCII chars in modal bodies (18 when key-bound).</td></tr><tr><td>icon</td><td><code>ic</code></td><td>string</td><td>Leading Lucide icon name.</td></tr><tr><td>variant</td><td><code>var</code></td><td>uint</td><td>0 = filled (default), 1 = tinted, 2 = gray, 3 = plain, 4 = success, 5 = destructive.</td></tr><tr><td>size</td><td><code>sz</code></td><td>uint</td><td>0 = md (default), 1 = sm, 2 = icon (circle), 3 = icon-sm.</td></tr><tr><td>color</td><td><code>col</code></td><td>uint</td><td>Palette override (zui_color_ref): 0 = variant default, 1 = accent, 2 = ok, 3 = warn, 4 = danger, 5 = pixel, 6-8 = ink1-3, 9-10 = surface/surface2, 11-18 = vibrant blue/teal/green/amber/orange/crimson/iris/violet.</td></tr><tr><td>role</td><td><code>role</code></td><td>string</td><td>v12 dispatch: &quot;submit&quot; | &quot;dismiss&quot; (terminal), &quot;event&quot; (pings, stays), &quot;next&quot; | &quot;prev&quot; (local paging). JSON takes the name; the wire carries the uint.</td></tr><tr><td>key</td><td><code>key</code></td><td>string</td><td>v12 physical-button binding: &quot;up&quot;, &quot;down&quot;, &quot;up.double&quot;, &quot;down.double&quot;. The button renders the key glyph; hold is never bindable.</td></tr></table>
+          <p class="meta">An `id` makes taps report through the btn hook (modal action / widget event).</p><p class="meta">The zui.h hold (long-press fill) field has no CBOR key.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Ready to deploy&quot;
+    },
+    {
+      &quot;k&quot;: &quot;btn&quot;,
+      &quot;id&quot;: &quot;go&quot;,
+      &quot;t&quot;: &quot;Deploy&quot;,
+      &quot;ic&quot;: &quot;play&quot;,
+      &quot;role&quot;: &quot;submit&quot;,
+      &quot;key&quot;: &quot;up&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/btn.png" alt="btn rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="btnrow">
+      <h2>btnrow <span class="version">k=9</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Button row — Horizontal row of buttons, evenly stretched.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>children</td><td><code>c</code></td><td>array</td><td>Child nodes (btn nodes); each grows to an equal share.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;btnrow&quot;,
+      &quot;c&quot;: [
+        {
+          &quot;k&quot;: &quot;btn&quot;,
+          &quot;t&quot;: &quot;Retry&quot;,
+          &quot;var&quot;: 1
+        },
+        {
+          &quot;k&quot;: &quot;btn&quot;,
+          &quot;t&quot;: &quot;Skip&quot;,
+          &quot;var&quot;: 2
+        }
+      ]
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/btnrow.png" alt="btnrow rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="chips">
+      <h2>chips <span class="version">k=10</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Chips — Wrapping row of label pills (on/off tinted).</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>labels</td><td><code>opts</code></td><td>array of strings</td><td>Chip labels (max 16); the count sets the chip count.</td></tr><tr><td>on flags</td><td><code>on</code></td><td>array of uints</td><td>Per-chip 0/1 accent tint; a shorter list reads 0 for the tail.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Transports&quot;
+    },
+    {
+      &quot;k&quot;: &quot;chips&quot;,
+      &quot;opts&quot;: [
+        &quot;Wifi&quot;,
+        &quot;BLE&quot;,
+        &quot;USB&quot;
+      ],
+      &quot;on&quot;: [
+        1,
+        0,
+        1
+      ]
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/chips.png" alt="chips rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="slider">
+      <h2>slider <span class="version">k=11</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Slider — Continuous 0-100 slider.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>value</td><td><code>v</code></td><td>uint</td><td>Initial value, 0-100.</td></tr><tr><td>live</td><td><code>live</code></td><td>bool</td><td>v12: with an `id`, stream value changes as widget events (debounced) while the modal stays up. JSON `live: true`; wire key `lv`.</td></tr></table>
+          <p class="meta">The zui.h leading icon field has no CBOR key.</p><p class="meta">With an `id` the final value collects into the terminal values{} map.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Volume&quot;
+    },
+    {
+      &quot;k&quot;: &quot;slider&quot;,
+      &quot;id&quot;: &quot;level&quot;,
+      &quot;v&quot;: 40,
+      &quot;live&quot;: true
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/slider.png" alt="slider rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="segslider">
+      <h2>segslider <span class="version">k=12</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Segmented slider — watchOS-style stepped slider: minus/plus buttons flanking a segmented track.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>value</td><td><code>v</code></td><td>uint</td><td>Initial filled stops.</td></tr><tr><td>live</td><td><code>live</code></td><td>bool</td><td>v12: with an `id`, stream step changes as widget events. JSON `live: true`; wire key `lv`.</td></tr></table>
+          <p class="meta">The zui.h stops/icon_lo/icon_hi/big fields have no CBOR keys - wire segsliders render 5 stops with minus/plus buttons.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;segslider&quot;,
+      &quot;v&quot;: 3
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/segslider.png" alt="segslider rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="ring">
+      <h2>ring <span class="version">k=13</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Ring — Single progress ring (full-circle arc).</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>value</td><td><code>v</code></td><td>uint</td><td>0-100 arc fill.</td></tr><tr><td>label</td><td><code>t</code></td><td>string</td><td>Center label (v13 #358).</td></tr><tr><td>caption</td><td><code>sub</code></td><td>string</td><td>Caption under the ring (v13 #358).</td></tr></table>
+          <p class="meta">The zui.h size field has no CBOR key - wire rings render 92px.</p><p class="meta">v13 #358: t/sub are on the wire now; pre-v13 decoders skip them (unlabeled ring).</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;lyt&quot;: 1,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;ring&quot;,
+      &quot;v&quot;: 72,
+      &quot;t&quot;: &quot;72%&quot;,
+      &quot;sub&quot;: &quot;5h window&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/ring.png" alt="ring rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="act">
+      <h2>act <span class="version">k=14</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Activity rings — Decorative triple activity rings (fixed demo values).</p>
+          
+          
+          <p class="meta">No data fields decode (zui.h size has no CBOR key) - the rings render fixed demo fills at 92px. Decorative only.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;lyt&quot;: 1,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;act&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/act.png" alt="act rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="widget">
+      <h2>widget <span class="version">k=15</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Widget card — Generic data card (gauge/chart/progress/label variants).</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>variant</td><td><code>var</code></td><td>uint</td><td>0 gauge, 1 chart, 2 progress, 3 label, 4 combo; out-of-range is ignored (gauge).</td></tr><tr><td>title</td><td><code>t</code></td><td>string</td><td>Mono caption above the body.</td></tr><tr><td>value</td><td><code>v</code></td><td>uint</td><td>0-100; drives the gauge arc / progress bar.</td></tr><tr><td>value string</td><td><code>val</code></td><td>string</td><td>Big value line under the body (any unit text).</td></tr><tr><td>bars</td><td><code>bars</code></td><td>array of uints</td><td>Chart variant: bar values 0-100 (max 16).</td></tr><tr><td>subtitle</td><td><code>sub</code></td><td>string</td><td>Mono footer line.</td></tr><tr><td>icon</td><td><code>ic</code></td><td>string</td><td>Lucide icon (label/combo variants only).</td></tr></table>
+          <p class="meta">The C-side `color` field has no renderer arm and stays unwired.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;widget&quot;,
+      &quot;var&quot;: 0,
+      &quot;t&quot;: &quot;BATTERY&quot;,
+      &quot;v&quot;: 62,
+      &quot;val&quot;: &quot;62%&quot;
+    },
+    {
+      &quot;k&quot;: &quot;widget&quot;,
+      &quot;var&quot;: 1,
+      &quot;t&quot;: &quot;CPU&quot;,
+      &quot;bars&quot;: [
+        20,
+        45,
+        80,
+        60,
+        100,
+        35
+      ],
+      &quot;sub&quot;: &quot;last 6 h&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/widget.png" alt="widget rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="vu">
+      <h2>vu <span class="version">k=16</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>VU meter — Static VU bar cluster (audio-level visual).</p>
+          
+          
+          <p class="meta">No fields - renders a fixed bar pattern.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;lyt&quot;: 1,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;vu&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/vu.png" alt="vu rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="listen">
+      <h2>listen <span class="version">k=17</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Listening halo — Concentric accent circles - the listening indicator.</p>
+          
+          
+          <p class="meta">No fields.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;lyt&quot;: 1,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;listen&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/listen.png" alt="listen rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="spinner">
+      <h2>spinner <span class="version">k=18</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Spinner — Indeterminate progress arc.</p>
+          
+          
+          <p class="meta">The zui.h label field has no CBOR key - wire spinners render the arc alone.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;lyt&quot;: 1,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;spinner&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/spinner.png" alt="spinner rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="picker">
+      <h2>picker <span class="version">k=19</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Picker — Value-row that opens a full-screen select.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>title</td><td><code>t</code></td><td>string</td><td>Row label.</td></tr><tr><td>options</td><td><code>opts</code></td><td>array of strings</td><td>The full-screen select options (max 16).</td></tr><tr><td>selected</td><td><code>sel</code></td><td>uint</td><td>Current option index, shown as the trailing value; out-of-range shows empty.</td></tr></table>
+          <p class="meta">In pushed docs prefer `choice` when the pick itself is the interaction - picker needs the device picker overlay hook for the full-screen select.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;picker&quot;,
+      &quot;t&quot;: &quot;Region&quot;,
+      &quot;opts&quot;: [
+        &quot;Europe&quot;,
+        &quot;US&quot;
+      ],
+      &quot;sel&quot;: 1
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/picker.png" alt="picker rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="clock">
+      <h2>clock <span class="version">k=20</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Clock — Big mono time + date stack.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>time</td><td><code>t</code></td><td>string</td><td>Time string (the device does NOT tick it - push updates or use glance faces).</td></tr><tr><td>date</td><td><code>date</code></td><td>string</td><td>Secondary date line under the time.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;lyt&quot;: 1,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;clock&quot;,
+      &quot;t&quot;: &quot;12:34&quot;,
+      &quot;date&quot;: &quot;Thu Jun 12&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/clock.png" alt="clock rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="applist">
+      <h2>applist <span class="version">k=21</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>App list — Launcher-style column of app rows.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>children</td><td><code>c</code></td><td>array</td><td>Rendered as a plain column (#328 added it to the container set); functionally `list` - prefer `list` unless you mean launcher semantics.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;applist&quot;,
+      &quot;c&quot;: [
+        {
+          &quot;k&quot;: &quot;row&quot;,
+          &quot;t&quot;: &quot;Timer&quot;,
+          &quot;ic&quot;: &quot;timer&quot;,
+          &quot;cv&quot;: 1
+        },
+        {
+          &quot;k&quot;: &quot;row&quot;,
+          &quot;t&quot;: &quot;Player&quot;,
+          &quot;ic&quot;: &quot;play&quot;,
+          &quot;cv&quot;: 1
+        }
+      ]
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/applist.png" alt="applist rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="box">
+      <h2>box <span class="version">k=22</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Box — Plain container column - the widget-slot content pattern and the modal page wrapper.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>children</td><td><code>c</code></td><td>array</td><td>Child nodes, stacked vertically.</td></tr></table>
+          <p class="meta">The zui.h row (horizontal flow) and gap fields have no CBOR keys - wire boxes are vertical columns with default spacing.</p><p class="meta">A box is a valid doc ROOT (the widget-slot push and modal page shape).</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;box&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;eyebrow&quot;,
+      &quot;t&quot;: &quot;5H LIMIT&quot;
+    },
+    {
+      &quot;k&quot;: &quot;big&quot;,
+      &quot;t&quot;: &quot;64%&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/box.png" alt="box rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="grid">
+      <h2>grid <span class="version">k=23</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Grid — Wrapping N-column grid of children.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>children</td><td><code>c</code></td><td>array</td><td>Child nodes; each sized to an equal column share.</td></tr><tr><td>columns</td><td><code>cols</code></td><td>uint</td><td>Column count 1-4 (clamped); absent = 2.</td></tr></table>
+          <p class="meta">v13 #358: cols is on the wire now; pre-v13 decoders skip it and render 2 columns.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;grid&quot;,
+      &quot;c&quot;: [
+        {
+          &quot;k&quot;: &quot;btn&quot;,
+          &quot;t&quot;: &quot;A&quot;
+        },
+        {
+          &quot;k&quot;: &quot;btn&quot;,
+          &quot;t&quot;: &quot;B&quot;
+        },
+        {
+          &quot;k&quot;: &quot;btn&quot;,
+          &quot;t&quot;: &quot;C&quot;
+        }
+      ],
+      &quot;cols&quot;: 3
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/grid.png" alt="grid rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="stepper">
+      <h2>stepper <span class="version">k=24</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Stepper dots — Progress pills (done/total).</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>total</td><td><code>total</code></td><td>uint</td><td>Pill count (0 renders one dim pill).</td></tr><tr><td>done</td><td><code>done</code></td><td>uint</td><td>Pills 0..done-1 render wide + accent.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Step 2 of 5&quot;
+    },
+    {
+      &quot;k&quot;: &quot;stepper&quot;,
+      &quot;total&quot;: 5,
+      &quot;done&quot;: 2
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/stepper.png" alt="stepper rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="tabs">
+      <h2>tabs <span class="version">k=25</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Tabs — Pill segmented page nav.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>labels</td><td><code>opts</code></td><td>array of strings</td><td>Segment labels (max 16).</td></tr><tr><td>selected</td><td><code>sel</code></td><td>uint</td><td>Accented segment index; out-of-range matches nothing.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;tabs&quot;,
+      &quot;opts&quot;: [
+        &quot;All&quot;,
+        &quot;New&quot;,
+        &quot;Done&quot;
+      ],
+      &quot;sel&quot;: 1
+    },
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;2 new notifications&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/tabs.png" alt="tabs rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="toggle">
+      <h2>toggle <span class="version">k=26</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Toggle — Standalone labeled switch card (title + subtitle left, switch right; whole-row tap flips).</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>title</td><td><code>t</code></td><td>string</td><td>Switch label.</td></tr><tr><td>subtitle</td><td><code>sub</code></td><td>string</td><td>Secondary line under the label.</td></tr><tr><td>on</td><td><code>on</code></td><td>uint</td><td>Initial state: 1 = on.</td></tr><tr><td>live</td><td><code>live</code></td><td>bool</td><td>v12: with an `id`, stream flips as widget events. JSON `live: true`; wire key `lv`.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;toggle&quot;,
+      &quot;id&quot;: &quot;alerts&quot;,
+      &quot;t&quot;: &quot;Alerts&quot;,
+      &quot;sub&quot;: &quot;Badge only&quot;,
+      &quot;on&quot;: 1,
+      &quot;live&quot;: true
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/toggle.png" alt="toggle rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="select">
+      <h2>select <span class="version">k=27</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Select — Checkbox (multi) / radio option group with trailing checks.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>title</td><td><code>t</code></td><td>string</td><td>Group header above the inset card.</td></tr><tr><td>options</td><td><code>opts</code></td><td>array of strings</td><td>Option labels, one cell each (max 16).</td></tr><tr><td>multi</td><td><code>multi</code></td><td>bool</td><td>true = checkbox group (uses `on`), false/absent = radio (uses `sel`).</td></tr><tr><td>selected</td><td><code>sel</code></td><td>uint</td><td>Radio: the checked option index.</td></tr><tr><td>on flags</td><td><code>on</code></td><td>array of uints</td><td>Checkbox: per-option 0/1 checked; a shorter list reads 0 for the tail.</td></tr><tr><td>live</td><td><code>live</code></td><td>bool</td><td>v12: with an `id`, taps stream the option index as widget events. JSON `live: true`; wire key `lv`.</td></tr></table>
+          <p class="meta">With a node `id` the tapped option index collects into the terminal values{} map.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;select&quot;,
+      &quot;id&quot;: &quot;chan&quot;,
+      &quot;t&quot;: &quot;Channel&quot;,
+      &quot;opts&quot;: [
+        &quot;Stable&quot;,
+        &quot;Beta&quot;
+      ],
+      &quot;sel&quot;: 0,
+      &quot;live&quot;: true
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/select.png" alt="select rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="section">
+      <h2>section <span class="version">k=28</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Section — Inset-joined grouped list: uppercase header + one card, children joined with hairline dividers.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>title</td><td><code>t</code></td><td>string</td><td>Group header (rendered uppercase mono above the card).</td></tr><tr><td>children</td><td><code>c</code></td><td>array</td><td>Child nodes (usually rows), joined into one card.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;section&quot;,
+      &quot;t&quot;: &quot;AUDIO&quot;,
+      &quot;c&quot;: [
+        {
+          &quot;k&quot;: &quot;row&quot;,
+          &quot;t&quot;: &quot;Volume&quot;,
+          &quot;ic&quot;: &quot;volume-2&quot;,
+          &quot;cv&quot;: 1
+        },
+        {
+          &quot;k&quot;: &quot;row&quot;,
+          &quot;t&quot;: &quot;Mic gain&quot;,
+          &quot;ic&quot;: &quot;mic&quot;,
+          &quot;cv&quot;: 1
+        }
+      ]
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/section.png" alt="section rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="dial">
+      <h2>dial <span class="version">k=29</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Dial — Radial hub + spokes (thumb-reach action wheel).</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>hub label</td><td><code>t</code></td><td>string</td><td>Center hub text.</td></tr><tr><td>spokes</td><td><code>opts</code></td><td>array of strings</td><td>Spoke labels, placed clockwise from the top (max 16; 4-6 fit).</td></tr></table>
+          <p class="meta">Full-screen radial layout - give it the screen (do not stack it in a column).</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;dial&quot;,
+      &quot;t&quot;: &quot;Scenes&quot;,
+      &quot;opts&quot;: [
+        &quot;Work&quot;,
+        &quot;Home&quot;,
+        &quot;Sleep&quot;,
+        &quot;Away&quot;
+      ]
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/dial.png" alt="dial rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="banner">
+      <h2>banner <span class="version">k=30</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Banner — Inline info/warn/error strip: icon + wrapping text on a tinted surface.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>text</td><td><code>t</code></td><td>string</td><td>Banner text (wraps).</td></tr><tr><td>icon</td><td><code>ic</code></td><td>string</td><td>Leading Lucide icon name.</td></tr><tr><td>variant</td><td><code>var</code></td><td>uint</td><td>0 = info (accent, default), 1 = warn, 2 = error.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;banner&quot;,
+      &quot;ic&quot;: &quot;battery-warning&quot;,
+      &quot;t&quot;: &quot;Battery low - 12% left&quot;,
+      &quot;var&quot;: 1
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/banner.png" alt="banner rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="progress">
+      <h2>progress <span class="version">k=31</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Progress bar — Determinate horizontal bar, 0-100.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>value</td><td><code>v</code></td><td>uint</td><td>0-100 fill.</td></tr><tr><td>color</td><td><code>col</code></td><td>uint</td><td>Indicator palette ref (same table as btn col); 0 = accent.</td></tr></table>
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Step 2 of 5 - migrations&quot;
+    },
+    {
+      &quot;k&quot;: &quot;progress&quot;,
+      &quot;v&quot;: 40
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/progress.png" alt="progress rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="slot">
+      <h2>slot <span class="version">k=32</span> <span class="badge no">not streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Widget slot — Glance-face placeholder substituted by the slot resolver at render.</p>
+          <p class="meta">Firmware-only BY DESIGN (#328 decision): `idx`/`family` have no CBOR keys because substitution requires the device-side glance-face slot resolver (zui_render_set_slot_resolver) - outside glance composition a pushed slot can only render the dashed unassigned placeholder, so streaming one is never meaningful. Glance-composition IR only.</p>
+          
+          
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;slot&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/slot.png" alt="slot rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="pageview">
+      <h2>pageview <span class="version">k=33</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Pageview — Multi-page document root - each child is one page (the modal `body` shape).</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>children</td><td><code>c</code></td><td>array</td><td>Pages. In a modal the device frames them with a STEP n OF m eyebrow + paging dots - do not add your own.</td></tr></table>
+          <p class="meta">Outside the modal renderer a pageview degrades to page 1 + static dots.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;pageview&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;box&quot;,
+      &quot;c&quot;: [
+        {
+          &quot;k&quot;: &quot;text&quot;,
+          &quot;t&quot;: &quot;Pick an environment&quot;
+        },
+        {
+          &quot;k&quot;: &quot;choice&quot;,
+          &quot;id&quot;: &quot;env&quot;,
+          &quot;c&quot;: [
+            {
+              &quot;k&quot;: &quot;text&quot;,
+              &quot;id&quot;: &quot;staging&quot;,
+              &quot;t&quot;: &quot;Staging&quot;
+            },
+            {
+              &quot;k&quot;: &quot;text&quot;,
+              &quot;id&quot;: &quot;prod&quot;,
+              &quot;t&quot;: &quot;Production&quot;
+            }
+          ]
+        }
+      ]
+    },
+    {
+      &quot;k&quot;: &quot;box&quot;,
+      &quot;c&quot;: [
+        {
+          &quot;k&quot;: &quot;btn&quot;,
+          &quot;id&quot;: &quot;go&quot;,
+          &quot;t&quot;: &quot;Deploy&quot;,
+          &quot;role&quot;: &quot;submit&quot;,
+          &quot;key&quot;: &quot;up&quot;
+        }
+      ]
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/pageview.png" alt="pageview rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="choice">
+      <h2>choice <span class="version">k=34</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Choice — Tappable option list (THE streamable picker): one inset card, a cell per option.</p>
+          
+          <table><tr><th>field</th><th>JSON key</th><th>type</th><th>notes</th></tr><tr><td>children</td><td><code>c</code></td><td>array</td><td>Options: text/row/btn nodes. Each option needs an `id` (rides the reply) and a label; options without a resolvable label are skipped.</td></tr><tr><td>advance</td><td><code>advance</code></td><td>bool</td><td>v12 wizard auto-advance: a pick acks and pages forward; terminal on the last page (the picked option id becomes the action). JSON `advance: true`; wire key `adv`.</td></tr></table>
+          <p class="meta">With a node `id` the picked option collects into the terminal values{} map.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;box&quot;,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;text&quot;,
+      &quot;t&quot;: &quot;Pick a region&quot;
+    },
+    {
+      &quot;k&quot;: &quot;choice&quot;,
+      &quot;id&quot;: &quot;region&quot;,
+      &quot;advance&quot;: true,
+      &quot;c&quot;: [
+        {
+          &quot;k&quot;: &quot;text&quot;,
+          &quot;id&quot;: &quot;eu&quot;,
+          &quot;t&quot;: &quot;Europe&quot;
+        },
+        {
+          &quot;k&quot;: &quot;text&quot;,
+          &quot;id&quot;: &quot;us&quot;,
+          &quot;t&quot;: &quot;US&quot;
+        }
+      ]
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/choice.png" alt="choice rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+
+    <article class="widget" id="image">
+      <h2>image <span class="version">k=35</span> <span class="badge">streamable</span></h2>
+      <div class="body">
+        <div class="text">
+          <p>Image — A foreground image. The asset reference rides the node id; push the pixels over the asset plane first, then reference them.</p>
+          
+          
+          <p class="meta">The asset ref is the node `id`, resolved against the on-device asset store (#547). No image-specific CBOR keys decode today; push the encoded image over the XFER asset plane before a surface references it. A missing asset renders a placeholder, never a blank or crash.</p>
+          <pre><code>{
+  &quot;k&quot;: &quot;screen&quot;,
+  &quot;lyt&quot;: 1,
+  &quot;c&quot;: [
+    {
+      &quot;k&quot;: &quot;image&quot;,
+      &quot;id&quot;: &quot;apple-music.art&quot;
+    }
+  ]
+}</code></pre>
+        </div>
+        <img src="thumbs/widgets/image.png" alt="image rendered on the device" width="184" height="224" loading="lazy">
+      </div>
+    </article>
+<footer>Generated 2026-07-01T12:39:01.763Z.</footer>
+</body>
+</html>

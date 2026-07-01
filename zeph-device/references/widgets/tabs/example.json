@@ -1,0 +1,14 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "tabs",
+      "opts": ["All", "New", "Done"],
+      "sel": 1
+    },
+    {
+      "k": "text",
+      "t": "2 new notifications"
+    }
+  ]
+}

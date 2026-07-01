@@ -1,0 +1,13 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "select",
+      "id": "chan",
+      "t": "Channel",
+      "opts": ["Stable", "Beta"],
+      "sel": 0,
+      "live": true
+    }
+  ]
+}

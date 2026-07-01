@@ -1,0 +1,15 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "text",
+      "t": "Volume"
+    },
+    {
+      "k": "slider",
+      "id": "level",
+      "v": 40,
+      "live": true
+    }
+  ]
+}

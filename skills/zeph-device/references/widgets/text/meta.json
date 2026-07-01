@@ -1,0 +1,16 @@
+{
+  "title": "Text",
+  "summary": "Body text line; wraps at the display edge.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "text",
+      "key": "t",
+      "type": "string",
+      "notes": "The text. Wraps full-width; alignment follows the layout (centered template centers it)."
+    }
+  ],
+  "notes": [
+    "The zui.h color/center fields have no CBOR keys."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "section",
+      "t": "AUDIO",
+      "c": [
+        {
+          "k": "row",
+          "t": "Volume",
+          "ic": "volume-2",
+          "cv": 1
+        },
+        {
+          "k": "row",
+          "t": "Mic gain",
+          "ic": "mic",
+          "cv": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "title": "Tabs",
+  "summary": "Pill segmented page nav.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "labels",
+      "key": "opts",
+      "type": "array of strings",
+      "notes": "Segment labels (max 16)."
+    },
+    {
+      "name": "selected",
+      "key": "sel",
+      "type": "uint",
+      "notes": "Accented segment index; out-of-range matches nothing."
+    }
+  ]
+}

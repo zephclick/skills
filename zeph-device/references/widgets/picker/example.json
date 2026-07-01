@@ -1,0 +1,11 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "picker",
+      "t": "Region",
+      "opts": ["Europe", "US"],
+      "sel": 1
+    }
+  ]
+}

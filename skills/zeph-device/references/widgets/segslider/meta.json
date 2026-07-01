@@ -1,0 +1,22 @@
+{
+  "title": "Segmented slider",
+  "summary": "watchOS-style stepped slider: minus/plus buttons flanking a segmented track.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "value",
+      "key": "v",
+      "type": "uint",
+      "notes": "Initial filled stops."
+    },
+    {
+      "name": "live",
+      "key": "live",
+      "type": "bool",
+      "notes": "v12: with an `id`, stream step changes as widget events. JSON `live: true`; wire key `lv`."
+    }
+  ],
+  "notes": [
+    "The zui.h stops/icon_lo/icon_hi/big fields have no CBOR keys - wire segsliders render 5 stops with minus/plus buttons."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "text",
+      "t": "Transports"
+    },
+    {
+      "k": "chips",
+      "opts": ["Wifi", "BLE", "USB"],
+      "on": [1, 0, 1]
+    }
+  ]
+}

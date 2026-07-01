@@ -1,0 +1,22 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "list",
+      "c": [
+        {
+          "k": "row",
+          "t": "zeph",
+          "ic": "folder",
+          "cv": 1
+        },
+        {
+          "k": "row",
+          "t": "companion",
+          "ic": "folder",
+          "cv": 1
+        }
+      ]
+    }
+  ]
+}

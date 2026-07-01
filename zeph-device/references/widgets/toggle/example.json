@@ -1,0 +1,13 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "toggle",
+      "id": "alerts",
+      "t": "Alerts",
+      "sub": "Badge only",
+      "on": 1,
+      "live": true
+    }
+  ]
+}

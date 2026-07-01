@@ -1,0 +1,13 @@
+{
+  "title": "Title",
+  "summary": "Large heading text.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "text",
+      "key": "t",
+      "type": "string",
+      "notes": "The heading text (large UI font)."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "k": "box",
+  "c": [
+    {
+      "k": "text",
+      "t": "Pick a region"
+    },
+    {
+      "k": "choice",
+      "id": "region",
+      "advance": true,
+      "c": [
+        {
+          "k": "text",
+          "id": "eu",
+          "t": "Europe"
+        },
+        {
+          "k": "text",
+          "id": "us",
+          "t": "US"
+        }
+      ]
+    }
+  ]
+}

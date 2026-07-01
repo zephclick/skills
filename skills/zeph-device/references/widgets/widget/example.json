@@ -1,0 +1,19 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "widget",
+      "var": 0,
+      "t": "BATTERY",
+      "v": 62,
+      "val": "62%"
+    },
+    {
+      "k": "widget",
+      "var": 1,
+      "t": "CPU",
+      "bars": [20, 45, 80, 60, 100, 35],
+      "sub": "last 6 h"
+    }
+  ]
+}

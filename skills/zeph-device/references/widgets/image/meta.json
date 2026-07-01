@@ -1,0 +1,9 @@
+{
+  "title": "Image",
+  "summary": "A foreground image. The asset reference rides the node id; push the pixels over the asset plane first, then reference them.",
+  "streamable": true,
+  "fields": [],
+  "notes": [
+    "The asset ref is the node `id`, resolved against the on-device asset store (#547). No image-specific CBOR keys decode today; push the encoded image over the XFER asset plane before a surface references it. A missing asset renders a placeholder, never a blank or crash."
+  ]
+}

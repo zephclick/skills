@@ -1,0 +1,19 @@
+{
+  "title": "Section",
+  "summary": "Inset-joined grouped list: uppercase header + one card, children joined with hairline dividers.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "title",
+      "key": "t",
+      "type": "string",
+      "notes": "Group header (rendered uppercase mono above the card)."
+    },
+    {
+      "name": "children",
+      "key": "c",
+      "type": "array",
+      "notes": "Child nodes (usually rows), joined into one card."
+    }
+  ]
+}

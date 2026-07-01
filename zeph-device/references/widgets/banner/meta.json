@@ -1,0 +1,25 @@
+{
+  "title": "Banner",
+  "summary": "Inline info/warn/error strip: icon + wrapping text on a tinted surface.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "text",
+      "key": "t",
+      "type": "string",
+      "notes": "Banner text (wraps)."
+    },
+    {
+      "name": "icon",
+      "key": "ic",
+      "type": "string",
+      "notes": "Leading Lucide icon name."
+    },
+    {
+      "name": "variant",
+      "key": "var",
+      "type": "uint",
+      "notes": "0 = info (accent, default), 1 = warn, 2 = error."
+    }
+  ]
+}

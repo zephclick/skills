@@ -1,0 +1,11 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "banner",
+      "ic": "battery-warning",
+      "t": "Battery low - 12% left",
+      "var": 1
+    }
+  ]
+}

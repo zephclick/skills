@@ -1,0 +1,53 @@
+{
+  "title": "Button",
+  "summary": "Pill button: label + optional icon, variant/size/color styling, v12 role + physical-key binding.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "label",
+      "key": "t",
+      "type": "string",
+      "notes": "One line. Max 24 ASCII chars in modal bodies (18 when key-bound)."
+    },
+    {
+      "name": "icon",
+      "key": "ic",
+      "type": "string",
+      "notes": "Leading Lucide icon name."
+    },
+    {
+      "name": "variant",
+      "key": "var",
+      "type": "uint",
+      "notes": "0 = filled (default), 1 = tinted, 2 = gray, 3 = plain, 4 = success, 5 = destructive."
+    },
+    {
+      "name": "size",
+      "key": "sz",
+      "type": "uint",
+      "notes": "0 = md (default), 1 = sm, 2 = icon (circle), 3 = icon-sm."
+    },
+    {
+      "name": "color",
+      "key": "col",
+      "type": "uint",
+      "notes": "Palette override (zui_color_ref): 0 = variant default, 1 = accent, 2 = ok, 3 = warn, 4 = danger, 5 = pixel, 6-8 = ink1-3, 9-10 = surface/surface2, 11-18 = vibrant blue/teal/green/amber/orange/crimson/iris/violet."
+    },
+    {
+      "name": "role",
+      "key": "role",
+      "type": "string",
+      "notes": "v12 dispatch: \"submit\" | \"dismiss\" (terminal), \"event\" (pings, stays), \"next\" | \"prev\" (local paging). JSON takes the name; the wire carries the uint."
+    },
+    {
+      "name": "key",
+      "key": "key",
+      "type": "string",
+      "notes": "v12 physical-button binding: \"up\", \"down\", \"up.double\", \"down.double\". The button renders the key glyph; hold is never bindable."
+    }
+  ],
+  "notes": [
+    "An `id` makes taps report through the btn hook (modal action / widget event).",
+    "The zui.h hold (long-press fill) field has no CBOR key."
+  ]
+}

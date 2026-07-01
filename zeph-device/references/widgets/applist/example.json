@@ -1,0 +1,22 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "applist",
+      "c": [
+        {
+          "k": "row",
+          "t": "Timer",
+          "ic": "timer",
+          "cv": 1
+        },
+        {
+          "k": "row",
+          "t": "Player",
+          "ic": "play",
+          "cv": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "row",
+      "t": "Wi-Fi",
+      "ic": "wifi",
+      "sub": "Connected",
+      "tg": 1,
+      "on": 1
+    },
+    {
+      "k": "row",
+      "t": "auth refactor",
+      "sub": "working",
+      "sp": 1,
+      "pg": "claude_code.sessions"
+    }
+  ]
+}

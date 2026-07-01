@@ -1,0 +1,9 @@
+{
+  "title": "Spinner",
+  "summary": "Indeterminate progress arc.",
+  "streamable": true,
+  "fields": [],
+  "notes": [
+    "The zui.h label field has no CBOR key - wire spinners render the arc alone."
+  ]
+}

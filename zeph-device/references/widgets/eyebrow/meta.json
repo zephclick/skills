@@ -1,0 +1,13 @@
+{
+  "title": "Eyebrow",
+  "summary": "Small uppercase context line (pixel-blue mono accent) above the payload.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "text",
+      "key": "t",
+      "type": "string",
+      "notes": "The context line. Keep it UPPERCASE and short."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "title": "Chips",
+  "summary": "Wrapping row of label pills (on/off tinted).",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "labels",
+      "key": "opts",
+      "type": "array of strings",
+      "notes": "Chip labels (max 16); the count sets the chip count."
+    },
+    {
+      "name": "on flags",
+      "key": "on",
+      "type": "array of uints",
+      "notes": "Per-chip 0/1 accent tint; a shorter list reads 0 for the tail."
+    }
+  ]
+}

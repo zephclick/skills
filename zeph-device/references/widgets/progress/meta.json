@@ -1,0 +1,19 @@
+{
+  "title": "Progress bar",
+  "summary": "Determinate horizontal bar, 0-100.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "value",
+      "key": "v",
+      "type": "uint",
+      "notes": "0-100 fill."
+    },
+    {
+      "name": "color",
+      "key": "col",
+      "type": "uint",
+      "notes": "Indicator palette ref (same table as btn col); 0 = accent."
+    }
+  ]
+}

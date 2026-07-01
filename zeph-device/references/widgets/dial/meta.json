@@ -1,0 +1,22 @@
+{
+  "title": "Dial",
+  "summary": "Radial hub + spokes (thumb-reach action wheel).",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "hub label",
+      "key": "t",
+      "type": "string",
+      "notes": "Center hub text."
+    },
+    {
+      "name": "spokes",
+      "key": "opts",
+      "type": "array of strings",
+      "notes": "Spoke labels, placed clockwise from the top (max 16; 4-6 fit)."
+    }
+  ],
+  "notes": [
+    "Full-screen radial layout - give it the screen (do not stack it in a column)."
+  ]
+}

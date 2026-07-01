@@ -1,0 +1,17 @@
+{
+  "title": "Box",
+  "summary": "Plain container column - the widget-slot content pattern and the modal page wrapper.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "children",
+      "key": "c",
+      "type": "array",
+      "notes": "Child nodes, stacked vertically."
+    }
+  ],
+  "notes": [
+    "The zui.h row (horizontal flow) and gap fields have no CBOR keys - wire boxes are vertical columns with default spacing.",
+    "A box is a valid doc ROOT (the widget-slot push and modal page shape)."
+  ]
+}

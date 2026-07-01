@@ -1,0 +1,22 @@
+{
+  "title": "Choice",
+  "summary": "Tappable option list (THE streamable picker): one inset card, a cell per option.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "children",
+      "key": "c",
+      "type": "array",
+      "notes": "Options: text/row/btn nodes. Each option needs an `id` (rides the reply) and a label; options without a resolvable label are skipped."
+    },
+    {
+      "name": "advance",
+      "key": "advance",
+      "type": "bool",
+      "notes": "v12 wizard auto-advance: a pick acks and pages forward; terminal on the last page (the picked option id becomes the action). JSON `advance: true`; wire key `adv`."
+    }
+  ],
+  "notes": [
+    "With a node `id` the picked option collects into the terminal values{} map."
+  ]
+}

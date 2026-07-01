@@ -1,0 +1,23 @@
+{
+  "title": "Slider",
+  "summary": "Continuous 0-100 slider.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "value",
+      "key": "v",
+      "type": "uint",
+      "notes": "Initial value, 0-100."
+    },
+    {
+      "name": "live",
+      "key": "live",
+      "type": "bool",
+      "notes": "v12: with an `id`, stream value changes as widget events (debounced) while the modal stays up. JSON `live: true`; wire key `lv`."
+    }
+  ],
+  "notes": [
+    "The zui.h leading icon field has no CBOR key.",
+    "With an `id` the final value collects into the terminal values{} map."
+  ]
+}

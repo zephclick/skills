@@ -1,0 +1,17 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "text",
+      "t": "Above the gap"
+    },
+    {
+      "k": "gap",
+      "h": 32
+    },
+    {
+      "k": "text",
+      "t": "Below the gap"
+    }
+  ]
+}

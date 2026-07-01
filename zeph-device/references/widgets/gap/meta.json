@@ -1,0 +1,13 @@
+{
+  "title": "Gap",
+  "summary": "Fixed vertical spacer between siblings.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "height",
+      "key": "h",
+      "type": "uint",
+      "notes": "Height in px; 0/omitted = theme default spacing."
+    }
+  ]
+}

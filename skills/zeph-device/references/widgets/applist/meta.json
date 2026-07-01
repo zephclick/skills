@@ -1,0 +1,13 @@
+{
+  "title": "App list",
+  "summary": "Launcher-style column of app rows.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "children",
+      "key": "c",
+      "type": "array",
+      "notes": "Rendered as a plain column (#328 added it to the container set); functionally `list` - prefer `list` unless you mean launcher semantics."
+    }
+  ]
+}

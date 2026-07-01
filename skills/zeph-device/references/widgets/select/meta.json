@@ -1,0 +1,46 @@
+{
+  "title": "Select",
+  "summary": "Checkbox (multi) / radio option group with trailing checks.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "title",
+      "key": "t",
+      "type": "string",
+      "notes": "Group header above the inset card."
+    },
+    {
+      "name": "options",
+      "key": "opts",
+      "type": "array of strings",
+      "notes": "Option labels, one cell each (max 16)."
+    },
+    {
+      "name": "multi",
+      "key": "multi",
+      "type": "bool",
+      "notes": "true = checkbox group (uses `on`), false/absent = radio (uses `sel`)."
+    },
+    {
+      "name": "selected",
+      "key": "sel",
+      "type": "uint",
+      "notes": "Radio: the checked option index."
+    },
+    {
+      "name": "on flags",
+      "key": "on",
+      "type": "array of uints",
+      "notes": "Checkbox: per-option 0/1 checked; a shorter list reads 0 for the tail."
+    },
+    {
+      "name": "live",
+      "key": "live",
+      "type": "bool",
+      "notes": "v12: with an `id`, taps stream the option index as widget events. JSON `live: true`; wire key `lv`."
+    }
+  ],
+  "notes": [
+    "With a node `id` the tapped option index collects into the terminal values{} map."
+  ]
+}

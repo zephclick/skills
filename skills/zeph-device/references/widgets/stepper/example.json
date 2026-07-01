@@ -1,0 +1,14 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "text",
+      "t": "Step 2 of 5"
+    },
+    {
+      "k": "stepper",
+      "total": 5,
+      "done": 2
+    }
+  ]
+}

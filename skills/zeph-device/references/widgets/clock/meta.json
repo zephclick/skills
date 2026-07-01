@@ -1,0 +1,19 @@
+{
+  "title": "Clock",
+  "summary": "Big mono time + date stack.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "time",
+      "key": "t",
+      "type": "string",
+      "notes": "Time string (the device does NOT tick it - push updates or use glance faces)."
+    },
+    {
+      "name": "date",
+      "key": "date",
+      "type": "string",
+      "notes": "Secondary date line under the time."
+    }
+  ]
+}

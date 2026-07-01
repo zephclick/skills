@@ -1,0 +1,28 @@
+{
+  "title": "Screen",
+  "summary": "Full-screen root: a layout template + a column of children. The usual root of a push_screen tree.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "title",
+      "key": "t",
+      "type": "string",
+      "notes": "Screen title; rendered by the foundation/list/pinned layouts (suppressed when room chrome owns the title)."
+    },
+    {
+      "name": "layout",
+      "key": "lyt",
+      "type": "uint",
+      "notes": "0 = foundation (safe-area scrolling column, default), 1 = centered, 2 = list (sticky title + rows), 3 = pinned (scrolling content + fixed bottom CTA)."
+    },
+    {
+      "name": "children",
+      "key": "c",
+      "type": "array",
+      "notes": "Child nodes, rendered top to bottom into the layout slot."
+    }
+  ],
+  "notes": [
+    "The pinned layout's fixed bottom CTA (zui.h screen.cta) has no CBOR key - lyt 3 over the wire renders without a bottom CTA."
+  ]
+}

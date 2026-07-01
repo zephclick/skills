@@ -1,0 +1,19 @@
+{
+  "title": "Stepper dots",
+  "summary": "Progress pills (done/total).",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "total",
+      "key": "total",
+      "type": "uint",
+      "notes": "Pill count (0 renders one dim pill)."
+    },
+    {
+      "name": "done",
+      "key": "done",
+      "type": "uint",
+      "notes": "Pills 0..done-1 render wide + accent."
+    }
+  ]
+}

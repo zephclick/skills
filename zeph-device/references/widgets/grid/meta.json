@@ -1,0 +1,22 @@
+{
+  "title": "Grid",
+  "summary": "Wrapping N-column grid of children.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "children",
+      "key": "c",
+      "type": "array",
+      "notes": "Child nodes; each sized to an equal column share."
+    },
+    {
+      "name": "columns",
+      "key": "cols",
+      "type": "uint",
+      "notes": "Column count 1-4 (clamped); absent = 2."
+    }
+  ],
+  "notes": [
+    "v13 #358: cols is on the wire now; pre-v13 decoders skip it and render 2 columns."
+  ]
+}

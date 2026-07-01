@@ -1,0 +1,9 @@
+{
+  "title": "VU meter",
+  "summary": "Static VU bar cluster (audio-level visual).",
+  "streamable": true,
+  "fields": [],
+  "notes": [
+    "No fields - renders a fixed bar pattern."
+  ]
+}

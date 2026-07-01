@@ -1,0 +1,59 @@
+{
+  "title": "Row",
+  "summary": "The standard list cell: leading icon, title (+ subtitle), trailing switch or chevron.",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "title",
+      "key": "t",
+      "type": "string",
+      "notes": "Cell title."
+    },
+    {
+      "name": "icon",
+      "key": "ic",
+      "type": "string",
+      "notes": "Leading Lucide icon name (device icon subset)."
+    },
+    {
+      "name": "subtitle",
+      "key": "sub",
+      "type": "string",
+      "notes": "Secondary line under the title."
+    },
+    {
+      "name": "toggle",
+      "key": "tg",
+      "type": "uint",
+      "notes": "1 = trailing switch (whole-row tap flips it)."
+    },
+    {
+      "name": "on",
+      "key": "on",
+      "type": "uint",
+      "notes": "Initial switch state when tg = 1."
+    },
+    {
+      "name": "chevron",
+      "key": "cv",
+      "type": "uint",
+      "notes": "1 = trailing chevron."
+    },
+    {
+      "name": "page ref",
+      "key": "pg",
+      "type": "string",
+      "notes": "Swipe-up page ref (\"app.export\"): tap opens that page (v13 #358)."
+    },
+    {
+      "name": "spinner",
+      "key": "sp",
+      "type": "uint",
+      "notes": "1 = leading live arc spinner replaces the icon (working glyph, v13 #358)."
+    }
+  ],
+  "notes": [
+    "The zui.h trailing value (val), icon color and custom icon image fields have no CBOR keys.",
+    "v13 #358: pg rows also render a trailing chevron; pre-v13 decoders skip pg/sp (inert row)."
+  ]
+}

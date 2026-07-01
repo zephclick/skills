@@ -1,0 +1,7 @@
+{
+  "title": "Widget slot",
+  "summary": "Glance-face placeholder substituted by the slot resolver at render.",
+  "streamable": false,
+  "reason": "Firmware-only BY DESIGN (#328 decision): `idx`/`family` have no CBOR keys because substitution requires the device-side glance-face slot resolver (zui_render_set_slot_resolver) - outside glance composition a pushed slot can only render the dashed unassigned placeholder, so streaming one is never meaningful. Glance-composition IR only.",
+  "fields": []
+}

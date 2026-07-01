@@ -1,0 +1,10 @@
+{
+  "k": "screen",
+  "c": [
+    {
+      "k": "dial",
+      "t": "Scenes",
+      "opts": ["Work", "Home", "Sleep", "Away"]
+    }
+  ]
+}

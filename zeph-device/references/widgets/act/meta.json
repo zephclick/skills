@@ -1,0 +1,9 @@
+{
+  "title": "Activity rings",
+  "summary": "Decorative triple activity rings (fixed demo values).",
+  "streamable": true,
+  "fields": [],
+  "notes": [
+    "No data fields decode (zui.h size has no CBOR key) - the rings render fixed demo fills at 92px. Decorative only."
+  ]
+}

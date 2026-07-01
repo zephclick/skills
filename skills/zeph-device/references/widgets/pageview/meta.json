@@ -1,0 +1,16 @@
+{
+  "title": "Pageview",
+  "summary": "Multi-page document root - each child is one page (the modal `body` shape).",
+  "streamable": true,
+  "fields": [
+    {
+      "name": "children",
+      "key": "c",
+      "type": "array",
+      "notes": "Pages. In a modal the device frames them with a STEP n OF m eyebrow + paging dots - do not add your own."
+    }
+  ],
+  "notes": [
+    "Outside the modal renderer a pageview degrades to page 1 + static dots."
+  ]
+}

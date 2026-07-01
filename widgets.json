@@ -1,0 +1,1457 @@
+{
+  "generated": "2026-07-01T12:39:01.763Z",
+  "widgets": [
+    {
+      "kind": "screen",
+      "wire": 0,
+      "title": "Screen",
+      "summary": "Full-screen root: a layout template + a column of children. The usual root of a push_screen tree.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "title",
+          "key": "t",
+          "type": "string",
+          "notes": "Screen title; rendered by the foundation/list/pinned layouts (suppressed when room chrome owns the title)."
+        },
+        {
+          "name": "layout",
+          "key": "lyt",
+          "type": "uint",
+          "notes": "0 = foundation (safe-area scrolling column, default), 1 = centered, 2 = list (sticky title + rows), 3 = pinned (scrolling content + fixed bottom CTA)."
+        },
+        {
+          "name": "children",
+          "key": "c",
+          "type": "array",
+          "notes": "Child nodes, rendered top to bottom into the layout slot."
+        }
+      ],
+      "notes": [
+        "The pinned layout's fixed bottom CTA (zui.h screen.cta) has no CBOR key - lyt 3 over the wire renders without a bottom CTA."
+      ],
+      "example": {
+        "k": "screen",
+        "t": "Deploy",
+        "c": [
+          {
+            "k": "text",
+            "t": "Pick an environment on the next page"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/screen.png"
+    },
+    {
+      "kind": "gap",
+      "wire": 1,
+      "title": "Gap",
+      "summary": "Fixed vertical spacer between siblings.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "height",
+          "key": "h",
+          "type": "uint",
+          "notes": "Height in px; 0/omitted = theme default spacing."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "text",
+            "t": "Above the gap"
+          },
+          {
+            "k": "gap",
+            "h": 32
+          },
+          {
+            "k": "text",
+            "t": "Below the gap"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/gap.png"
+    },
+    {
+      "kind": "text",
+      "wire": 2,
+      "title": "Text",
+      "summary": "Body text line; wraps at the display edge.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "text",
+          "key": "t",
+          "type": "string",
+          "notes": "The text. Wraps full-width; alignment follows the layout (centered template centers it)."
+        }
+      ],
+      "notes": [
+        "The zui.h color/center fields have no CBOR keys."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "text",
+            "t": "Plain body text wraps at the display edge of the 1.8 inch screen."
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/text.png"
+    },
+    {
+      "kind": "title",
+      "wire": 3,
+      "title": "Title",
+      "summary": "Large heading text.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "text",
+          "key": "t",
+          "type": "string",
+          "notes": "The heading text (large UI font)."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "title",
+            "t": "Build finished"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/title.png"
+    },
+    {
+      "kind": "eyebrow",
+      "wire": 4,
+      "title": "Eyebrow",
+      "summary": "Small uppercase context line (pixel-blue mono accent) above the payload.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "text",
+          "key": "t",
+          "type": "string",
+          "notes": "The context line. Keep it UPPERCASE and short."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "lyt": 1,
+        "c": [
+          {
+            "k": "eyebrow",
+            "t": "BUILD"
+          },
+          {
+            "k": "big",
+            "t": "Green"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/eyebrow.png"
+    },
+    {
+      "kind": "big",
+      "wire": 5,
+      "title": "Big",
+      "summary": "Large display text - the one-glance payload (1-3 words).",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "text",
+          "key": "t",
+          "type": "string",
+          "notes": "The display text (large font)."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "lyt": 1,
+        "c": [
+          {
+            "k": "big",
+            "t": "64%"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/big.png"
+    },
+    {
+      "kind": "list",
+      "wire": 6,
+      "title": "List",
+      "summary": "Vertical column of children - typically row nodes (a swipe-up page).",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "children",
+          "key": "c",
+          "type": "array",
+          "notes": "Child nodes (usually rows)."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "list",
+            "c": [
+              {
+                "k": "row",
+                "t": "zeph",
+                "ic": "folder",
+                "cv": 1
+              },
+              {
+                "k": "row",
+                "t": "companion",
+                "ic": "folder",
+                "cv": 1
+              }
+            ]
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/list.png"
+    },
+    {
+      "kind": "row",
+      "wire": 7,
+      "title": "Row",
+      "summary": "The standard list cell: leading icon, title (+ subtitle), trailing switch or chevron.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "title",
+          "key": "t",
+          "type": "string",
+          "notes": "Cell title."
+        },
+        {
+          "name": "icon",
+          "key": "ic",
+          "type": "string",
+          "notes": "Leading Lucide icon name (device icon subset)."
+        },
+        {
+          "name": "subtitle",
+          "key": "sub",
+          "type": "string",
+          "notes": "Secondary line under the title."
+        },
+        {
+          "name": "toggle",
+          "key": "tg",
+          "type": "uint",
+          "notes": "1 = trailing switch (whole-row tap flips it)."
+        },
+        {
+          "name": "on",
+          "key": "on",
+          "type": "uint",
+          "notes": "Initial switch state when tg = 1."
+        },
+        {
+          "name": "chevron",
+          "key": "cv",
+          "type": "uint",
+          "notes": "1 = trailing chevron."
+        },
+        {
+          "name": "page ref",
+          "key": "pg",
+          "type": "string",
+          "notes": "Swipe-up page ref (\"app.export\"): tap opens that page (v13 #358)."
+        },
+        {
+          "name": "spinner",
+          "key": "sp",
+          "type": "uint",
+          "notes": "1 = leading live arc spinner replaces the icon (working glyph, v13 #358)."
+        }
+      ],
+      "notes": [
+        "The zui.h trailing value (val), icon color and custom icon image fields have no CBOR keys.",
+        "v13 #358: pg rows also render a trailing chevron; pre-v13 decoders skip pg/sp (inert row)."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "row",
+            "t": "Wi-Fi",
+            "ic": "wifi",
+            "sub": "Connected",
+            "tg": 1,
+            "on": 1
+          },
+          {
+            "k": "row",
+            "t": "auth refactor",
+            "sub": "working",
+            "sp": 1,
+            "pg": "claude_code.sessions"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/row.png"
+    },
+    {
+      "kind": "btn",
+      "wire": 8,
+      "title": "Button",
+      "summary": "Pill button: label + optional icon, variant/size/color styling, v12 role + physical-key binding.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "label",
+          "key": "t",
+          "type": "string",
+          "notes": "One line. Max 24 ASCII chars in modal bodies (18 when key-bound)."
+        },
+        {
+          "name": "icon",
+          "key": "ic",
+          "type": "string",
+          "notes": "Leading Lucide icon name."
+        },
+        {
+          "name": "variant",
+          "key": "var",
+          "type": "uint",
+          "notes": "0 = filled (default), 1 = tinted, 2 = gray, 3 = plain, 4 = success, 5 = destructive."
+        },
+        {
+          "name": "size",
+          "key": "sz",
+          "type": "uint",
+          "notes": "0 = md (default), 1 = sm, 2 = icon (circle), 3 = icon-sm."
+        },
+        {
+          "name": "color",
+          "key": "col",
+          "type": "uint",
+          "notes": "Palette override (zui_color_ref): 0 = variant default, 1 = accent, 2 = ok, 3 = warn, 4 = danger, 5 = pixel, 6-8 = ink1-3, 9-10 = surface/surface2, 11-18 = vibrant blue/teal/green/amber/orange/crimson/iris/violet."
+        },
+        {
+          "name": "role",
+          "key": "role",
+          "type": "string",
+          "notes": "v12 dispatch: \"submit\" | \"dismiss\" (terminal), \"event\" (pings, stays), \"next\" | \"prev\" (local paging). JSON takes the name; the wire carries the uint."
+        },
+        {
+          "name": "key",
+          "key": "key",
+          "type": "string",
+          "notes": "v12 physical-button binding: \"up\", \"down\", \"up.double\", \"down.double\". The button renders the key glyph; hold is never bindable."
+        }
+      ],
+      "notes": [
+        "An `id` makes taps report through the btn hook (modal action / widget event).",
+        "The zui.h hold (long-press fill) field has no CBOR key."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "text",
+            "t": "Ready to deploy"
+          },
+          {
+            "k": "btn",
+            "id": "go",
+            "t": "Deploy",
+            "ic": "play",
+            "role": "submit",
+            "key": "up"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/btn.png"
+    },
+    {
+      "kind": "btnrow",
+      "wire": 9,
+      "title": "Button row",
+      "summary": "Horizontal row of buttons, evenly stretched.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "children",
+          "key": "c",
+          "type": "array",
+          "notes": "Child nodes (btn nodes); each grows to an equal share."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "btnrow",
+            "c": [
+              {
+                "k": "btn",
+                "t": "Retry",
+                "var": 1
+              },
+              {
+                "k": "btn",
+                "t": "Skip",
+                "var": 2
+              }
+            ]
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/btnrow.png"
+    },
+    {
+      "kind": "chips",
+      "wire": 10,
+      "title": "Chips",
+      "summary": "Wrapping row of label pills (on/off tinted).",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "labels",
+          "key": "opts",
+          "type": "array of strings",
+          "notes": "Chip labels (max 16); the count sets the chip count."
+        },
+        {
+          "name": "on flags",
+          "key": "on",
+          "type": "array of uints",
+          "notes": "Per-chip 0/1 accent tint; a shorter list reads 0 for the tail."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "text",
+            "t": "Transports"
+          },
+          {
+            "k": "chips",
+            "opts": [
+              "Wifi",
+              "BLE",
+              "USB"
+            ],
+            "on": [
+              1,
+              0,
+              1
+            ]
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/chips.png"
+    },
+    {
+      "kind": "slider",
+      "wire": 11,
+      "title": "Slider",
+      "summary": "Continuous 0-100 slider.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "value",
+          "key": "v",
+          "type": "uint",
+          "notes": "Initial value, 0-100."
+        },
+        {
+          "name": "live",
+          "key": "live",
+          "type": "bool",
+          "notes": "v12: with an `id`, stream value changes as widget events (debounced) while the modal stays up. JSON `live: true`; wire key `lv`."
+        }
+      ],
+      "notes": [
+        "The zui.h leading icon field has no CBOR key.",
+        "With an `id` the final value collects into the terminal values{} map."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "text",
+            "t": "Volume"
+          },
+          {
+            "k": "slider",
+            "id": "level",
+            "v": 40,
+            "live": true
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/slider.png"
+    },
+    {
+      "kind": "segslider",
+      "wire": 12,
+      "title": "Segmented slider",
+      "summary": "watchOS-style stepped slider: minus/plus buttons flanking a segmented track.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "value",
+          "key": "v",
+          "type": "uint",
+          "notes": "Initial filled stops."
+        },
+        {
+          "name": "live",
+          "key": "live",
+          "type": "bool",
+          "notes": "v12: with an `id`, stream step changes as widget events. JSON `live: true`; wire key `lv`."
+        }
+      ],
+      "notes": [
+        "The zui.h stops/icon_lo/icon_hi/big fields have no CBOR keys - wire segsliders render 5 stops with minus/plus buttons."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "segslider",
+            "v": 3
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/segslider.png"
+    },
+    {
+      "kind": "ring",
+      "wire": 13,
+      "title": "Ring",
+      "summary": "Single progress ring (full-circle arc).",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "value",
+          "key": "v",
+          "type": "uint",
+          "notes": "0-100 arc fill."
+        },
+        {
+          "name": "label",
+          "key": "t",
+          "type": "string",
+          "notes": "Center label (v13 #358)."
+        },
+        {
+          "name": "caption",
+          "key": "sub",
+          "type": "string",
+          "notes": "Caption under the ring (v13 #358)."
+        }
+      ],
+      "notes": [
+        "The zui.h size field has no CBOR key - wire rings render 92px.",
+        "v13 #358: t/sub are on the wire now; pre-v13 decoders skip them (unlabeled ring)."
+      ],
+      "example": {
+        "k": "screen",
+        "lyt": 1,
+        "c": [
+          {
+            "k": "ring",
+            "v": 72,
+            "t": "72%",
+            "sub": "5h window"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/ring.png"
+    },
+    {
+      "kind": "act",
+      "wire": 14,
+      "title": "Activity rings",
+      "summary": "Decorative triple activity rings (fixed demo values).",
+      "streamable": true,
+      "fields": [],
+      "notes": [
+        "No data fields decode (zui.h size has no CBOR key) - the rings render fixed demo fills at 92px. Decorative only."
+      ],
+      "example": {
+        "k": "screen",
+        "lyt": 1,
+        "c": [
+          {
+            "k": "act"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/act.png"
+    },
+    {
+      "kind": "widget",
+      "wire": 15,
+      "title": "Widget card",
+      "summary": "Generic data card (gauge/chart/progress/label variants).",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "variant",
+          "key": "var",
+          "type": "uint",
+          "notes": "0 gauge, 1 chart, 2 progress, 3 label, 4 combo; out-of-range is ignored (gauge)."
+        },
+        {
+          "name": "title",
+          "key": "t",
+          "type": "string",
+          "notes": "Mono caption above the body."
+        },
+        {
+          "name": "value",
+          "key": "v",
+          "type": "uint",
+          "notes": "0-100; drives the gauge arc / progress bar."
+        },
+        {
+          "name": "value string",
+          "key": "val",
+          "type": "string",
+          "notes": "Big value line under the body (any unit text)."
+        },
+        {
+          "name": "bars",
+          "key": "bars",
+          "type": "array of uints",
+          "notes": "Chart variant: bar values 0-100 (max 16)."
+        },
+        {
+          "name": "subtitle",
+          "key": "sub",
+          "type": "string",
+          "notes": "Mono footer line."
+        },
+        {
+          "name": "icon",
+          "key": "ic",
+          "type": "string",
+          "notes": "Lucide icon (label/combo variants only)."
+        }
+      ],
+      "notes": [
+        "The C-side `color` field has no renderer arm and stays unwired."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "widget",
+            "var": 0,
+            "t": "BATTERY",
+            "v": 62,
+            "val": "62%"
+          },
+          {
+            "k": "widget",
+            "var": 1,
+            "t": "CPU",
+            "bars": [
+              20,
+              45,
+              80,
+              60,
+              100,
+              35
+            ],
+            "sub": "last 6 h"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/widget.png"
+    },
+    {
+      "kind": "vu",
+      "wire": 16,
+      "title": "VU meter",
+      "summary": "Static VU bar cluster (audio-level visual).",
+      "streamable": true,
+      "fields": [],
+      "notes": [
+        "No fields - renders a fixed bar pattern."
+      ],
+      "example": {
+        "k": "screen",
+        "lyt": 1,
+        "c": [
+          {
+            "k": "vu"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/vu.png"
+    },
+    {
+      "kind": "listen",
+      "wire": 17,
+      "title": "Listening halo",
+      "summary": "Concentric accent circles - the listening indicator.",
+      "streamable": true,
+      "fields": [],
+      "notes": [
+        "No fields."
+      ],
+      "example": {
+        "k": "screen",
+        "lyt": 1,
+        "c": [
+          {
+            "k": "listen"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/listen.png"
+    },
+    {
+      "kind": "spinner",
+      "wire": 18,
+      "title": "Spinner",
+      "summary": "Indeterminate progress arc.",
+      "streamable": true,
+      "fields": [],
+      "notes": [
+        "The zui.h label field has no CBOR key - wire spinners render the arc alone."
+      ],
+      "example": {
+        "k": "screen",
+        "lyt": 1,
+        "c": [
+          {
+            "k": "spinner"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/spinner.png"
+    },
+    {
+      "kind": "picker",
+      "wire": 19,
+      "title": "Picker",
+      "summary": "Value-row that opens a full-screen select.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "title",
+          "key": "t",
+          "type": "string",
+          "notes": "Row label."
+        },
+        {
+          "name": "options",
+          "key": "opts",
+          "type": "array of strings",
+          "notes": "The full-screen select options (max 16)."
+        },
+        {
+          "name": "selected",
+          "key": "sel",
+          "type": "uint",
+          "notes": "Current option index, shown as the trailing value; out-of-range shows empty."
+        }
+      ],
+      "notes": [
+        "In pushed docs prefer `choice` when the pick itself is the interaction - picker needs the device picker overlay hook for the full-screen select."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "picker",
+            "t": "Region",
+            "opts": [
+              "Europe",
+              "US"
+            ],
+            "sel": 1
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/picker.png"
+    },
+    {
+      "kind": "clock",
+      "wire": 20,
+      "title": "Clock",
+      "summary": "Big mono time + date stack.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "time",
+          "key": "t",
+          "type": "string",
+          "notes": "Time string (the device does NOT tick it - push updates or use glance faces)."
+        },
+        {
+          "name": "date",
+          "key": "date",
+          "type": "string",
+          "notes": "Secondary date line under the time."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "lyt": 1,
+        "c": [
+          {
+            "k": "clock",
+            "t": "12:34",
+            "date": "Thu Jun 12"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/clock.png"
+    },
+    {
+      "kind": "applist",
+      "wire": 21,
+      "title": "App list",
+      "summary": "Launcher-style column of app rows.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "children",
+          "key": "c",
+          "type": "array",
+          "notes": "Rendered as a plain column (#328 added it to the container set); functionally `list` - prefer `list` unless you mean launcher semantics."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "applist",
+            "c": [
+              {
+                "k": "row",
+                "t": "Timer",
+                "ic": "timer",
+                "cv": 1
+              },
+              {
+                "k": "row",
+                "t": "Player",
+                "ic": "play",
+                "cv": 1
+              }
+            ]
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/applist.png"
+    },
+    {
+      "kind": "box",
+      "wire": 22,
+      "title": "Box",
+      "summary": "Plain container column - the widget-slot content pattern and the modal page wrapper.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "children",
+          "key": "c",
+          "type": "array",
+          "notes": "Child nodes, stacked vertically."
+        }
+      ],
+      "notes": [
+        "The zui.h row (horizontal flow) and gap fields have no CBOR keys - wire boxes are vertical columns with default spacing.",
+        "A box is a valid doc ROOT (the widget-slot push and modal page shape)."
+      ],
+      "example": {
+        "k": "box",
+        "c": [
+          {
+            "k": "eyebrow",
+            "t": "5H LIMIT"
+          },
+          {
+            "k": "big",
+            "t": "64%"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/box.png"
+    },
+    {
+      "kind": "grid",
+      "wire": 23,
+      "title": "Grid",
+      "summary": "Wrapping N-column grid of children.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "children",
+          "key": "c",
+          "type": "array",
+          "notes": "Child nodes; each sized to an equal column share."
+        },
+        {
+          "name": "columns",
+          "key": "cols",
+          "type": "uint",
+          "notes": "Column count 1-4 (clamped); absent = 2."
+        }
+      ],
+      "notes": [
+        "v13 #358: cols is on the wire now; pre-v13 decoders skip it and render 2 columns."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "grid",
+            "c": [
+              {
+                "k": "btn",
+                "t": "A"
+              },
+              {
+                "k": "btn",
+                "t": "B"
+              },
+              {
+                "k": "btn",
+                "t": "C"
+              }
+            ],
+            "cols": 3
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/grid.png"
+    },
+    {
+      "kind": "stepper",
+      "wire": 24,
+      "title": "Stepper dots",
+      "summary": "Progress pills (done/total).",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "total",
+          "key": "total",
+          "type": "uint",
+          "notes": "Pill count (0 renders one dim pill)."
+        },
+        {
+          "name": "done",
+          "key": "done",
+          "type": "uint",
+          "notes": "Pills 0..done-1 render wide + accent."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "text",
+            "t": "Step 2 of 5"
+          },
+          {
+            "k": "stepper",
+            "total": 5,
+            "done": 2
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/stepper.png"
+    },
+    {
+      "kind": "tabs",
+      "wire": 25,
+      "title": "Tabs",
+      "summary": "Pill segmented page nav.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "labels",
+          "key": "opts",
+          "type": "array of strings",
+          "notes": "Segment labels (max 16)."
+        },
+        {
+          "name": "selected",
+          "key": "sel",
+          "type": "uint",
+          "notes": "Accented segment index; out-of-range matches nothing."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "tabs",
+            "opts": [
+              "All",
+              "New",
+              "Done"
+            ],
+            "sel": 1
+          },
+          {
+            "k": "text",
+            "t": "2 new notifications"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/tabs.png"
+    },
+    {
+      "kind": "toggle",
+      "wire": 26,
+      "title": "Toggle",
+      "summary": "Standalone labeled switch card (title + subtitle left, switch right; whole-row tap flips).",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "title",
+          "key": "t",
+          "type": "string",
+          "notes": "Switch label."
+        },
+        {
+          "name": "subtitle",
+          "key": "sub",
+          "type": "string",
+          "notes": "Secondary line under the label."
+        },
+        {
+          "name": "on",
+          "key": "on",
+          "type": "uint",
+          "notes": "Initial state: 1 = on."
+        },
+        {
+          "name": "live",
+          "key": "live",
+          "type": "bool",
+          "notes": "v12: with an `id`, stream flips as widget events. JSON `live: true`; wire key `lv`."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "toggle",
+            "id": "alerts",
+            "t": "Alerts",
+            "sub": "Badge only",
+            "on": 1,
+            "live": true
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/toggle.png"
+    },
+    {
+      "kind": "select",
+      "wire": 27,
+      "title": "Select",
+      "summary": "Checkbox (multi) / radio option group with trailing checks.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "title",
+          "key": "t",
+          "type": "string",
+          "notes": "Group header above the inset card."
+        },
+        {
+          "name": "options",
+          "key": "opts",
+          "type": "array of strings",
+          "notes": "Option labels, one cell each (max 16)."
+        },
+        {
+          "name": "multi",
+          "key": "multi",
+          "type": "bool",
+          "notes": "true = checkbox group (uses `on`), false/absent = radio (uses `sel`)."
+        },
+        {
+          "name": "selected",
+          "key": "sel",
+          "type": "uint",
+          "notes": "Radio: the checked option index."
+        },
+        {
+          "name": "on flags",
+          "key": "on",
+          "type": "array of uints",
+          "notes": "Checkbox: per-option 0/1 checked; a shorter list reads 0 for the tail."
+        },
+        {
+          "name": "live",
+          "key": "live",
+          "type": "bool",
+          "notes": "v12: with an `id`, taps stream the option index as widget events. JSON `live: true`; wire key `lv`."
+        }
+      ],
+      "notes": [
+        "With a node `id` the tapped option index collects into the terminal values{} map."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "select",
+            "id": "chan",
+            "t": "Channel",
+            "opts": [
+              "Stable",
+              "Beta"
+            ],
+            "sel": 0,
+            "live": true
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/select.png"
+    },
+    {
+      "kind": "section",
+      "wire": 28,
+      "title": "Section",
+      "summary": "Inset-joined grouped list: uppercase header + one card, children joined with hairline dividers.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "title",
+          "key": "t",
+          "type": "string",
+          "notes": "Group header (rendered uppercase mono above the card)."
+        },
+        {
+          "name": "children",
+          "key": "c",
+          "type": "array",
+          "notes": "Child nodes (usually rows), joined into one card."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "section",
+            "t": "AUDIO",
+            "c": [
+              {
+                "k": "row",
+                "t": "Volume",
+                "ic": "volume-2",
+                "cv": 1
+              },
+              {
+                "k": "row",
+                "t": "Mic gain",
+                "ic": "mic",
+                "cv": 1
+              }
+            ]
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/section.png"
+    },
+    {
+      "kind": "dial",
+      "wire": 29,
+      "title": "Dial",
+      "summary": "Radial hub + spokes (thumb-reach action wheel).",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "hub label",
+          "key": "t",
+          "type": "string",
+          "notes": "Center hub text."
+        },
+        {
+          "name": "spokes",
+          "key": "opts",
+          "type": "array of strings",
+          "notes": "Spoke labels, placed clockwise from the top (max 16; 4-6 fit)."
+        }
+      ],
+      "notes": [
+        "Full-screen radial layout - give it the screen (do not stack it in a column)."
+      ],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "dial",
+            "t": "Scenes",
+            "opts": [
+              "Work",
+              "Home",
+              "Sleep",
+              "Away"
+            ]
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/dial.png"
+    },
+    {
+      "kind": "banner",
+      "wire": 30,
+      "title": "Banner",
+      "summary": "Inline info/warn/error strip: icon + wrapping text on a tinted surface.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "text",
+          "key": "t",
+          "type": "string",
+          "notes": "Banner text (wraps)."
+        },
+        {
+          "name": "icon",
+          "key": "ic",
+          "type": "string",
+          "notes": "Leading Lucide icon name."
+        },
+        {
+          "name": "variant",
+          "key": "var",
+          "type": "uint",
+          "notes": "0 = info (accent, default), 1 = warn, 2 = error."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "banner",
+            "ic": "battery-warning",
+            "t": "Battery low - 12% left",
+            "var": 1
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/banner.png"
+    },
+    {
+      "kind": "progress",
+      "wire": 31,
+      "title": "Progress bar",
+      "summary": "Determinate horizontal bar, 0-100.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "value",
+          "key": "v",
+          "type": "uint",
+          "notes": "0-100 fill."
+        },
+        {
+          "name": "color",
+          "key": "col",
+          "type": "uint",
+          "notes": "Indicator palette ref (same table as btn col); 0 = accent."
+        }
+      ],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "text",
+            "t": "Step 2 of 5 - migrations"
+          },
+          {
+            "k": "progress",
+            "v": 40
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/progress.png"
+    },
+    {
+      "kind": "slot",
+      "wire": 32,
+      "title": "Widget slot",
+      "summary": "Glance-face placeholder substituted by the slot resolver at render.",
+      "streamable": false,
+      "reason": "Firmware-only BY DESIGN (#328 decision): `idx`/`family` have no CBOR keys because substitution requires the device-side glance-face slot resolver (zui_render_set_slot_resolver) - outside glance composition a pushed slot can only render the dashed unassigned placeholder, so streaming one is never meaningful. Glance-composition IR only.",
+      "fields": [],
+      "notes": [],
+      "example": {
+        "k": "screen",
+        "c": [
+          {
+            "k": "slot"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/slot.png"
+    },
+    {
+      "kind": "pageview",
+      "wire": 33,
+      "title": "Pageview",
+      "summary": "Multi-page document root - each child is one page (the modal `body` shape).",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "children",
+          "key": "c",
+          "type": "array",
+          "notes": "Pages. In a modal the device frames them with a STEP n OF m eyebrow + paging dots - do not add your own."
+        }
+      ],
+      "notes": [
+        "Outside the modal renderer a pageview degrades to page 1 + static dots."
+      ],
+      "example": {
+        "k": "pageview",
+        "c": [
+          {
+            "k": "box",
+            "c": [
+              {
+                "k": "text",
+                "t": "Pick an environment"
+              },
+              {
+                "k": "choice",
+                "id": "env",
+                "c": [
+                  {
+                    "k": "text",
+                    "id": "staging",
+                    "t": "Staging"
+                  },
+                  {
+                    "k": "text",
+                    "id": "prod",
+                    "t": "Production"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "k": "box",
+            "c": [
+              {
+                "k": "btn",
+                "id": "go",
+                "t": "Deploy",
+                "role": "submit",
+                "key": "up"
+              }
+            ]
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/pageview.png"
+    },
+    {
+      "kind": "choice",
+      "wire": 34,
+      "title": "Choice",
+      "summary": "Tappable option list (THE streamable picker): one inset card, a cell per option.",
+      "streamable": true,
+      "fields": [
+        {
+          "name": "children",
+          "key": "c",
+          "type": "array",
+          "notes": "Options: text/row/btn nodes. Each option needs an `id` (rides the reply) and a label; options without a resolvable label are skipped."
+        },
+        {
+          "name": "advance",
+          "key": "advance",
+          "type": "bool",
+          "notes": "v12 wizard auto-advance: a pick acks and pages forward; terminal on the last page (the picked option id becomes the action). JSON `advance: true`; wire key `adv`."
+        }
+      ],
+      "notes": [
+        "With a node `id` the picked option collects into the terminal values{} map."
+      ],
+      "example": {
+        "k": "box",
+        "c": [
+          {
+            "k": "text",
+            "t": "Pick a region"
+          },
+          {
+            "k": "choice",
+            "id": "region",
+            "advance": true,
+            "c": [
+              {
+                "k": "text",
+                "id": "eu",
+                "t": "Europe"
+              },
+              {
+                "k": "text",
+                "id": "us",
+                "t": "US"
+              }
+            ]
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/choice.png"
+    },
+    {
+      "kind": "image",
+      "wire": 35,
+      "title": "Image",
+      "summary": "A foreground image. The asset reference rides the node id; push the pixels over the asset plane first, then reference them.",
+      "streamable": true,
+      "fields": [],
+      "notes": [
+        "The asset ref is the node `id`, resolved against the on-device asset store (#547). No image-specific CBOR keys decode today; push the encoded image over the XFER asset plane before a surface references it. A missing asset renders a placeholder, never a blank or crash."
+      ],
+      "example": {
+        "k": "screen",
+        "lyt": 1,
+        "c": [
+          {
+            "k": "image",
+            "id": "apple-music.art"
+          }
+        ]
+      },
+      "thumb": "thumbs/widgets/image.png"
+    }
+  ]
+}

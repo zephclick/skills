@@ -4,8 +4,8 @@ description: Control a Zeph device through the companion's MCP server - read dev
 metadata:
   zeph:
     device: true
-    version: 1.0.0
-    capabilities: ["zui.v12", "notify.v2"]
+    version: 1.1.0
+    capabilities: ["zui.interactive", "notify.reply"]
 ---
 
 # zeph-device — the base skill for Zeph's MCP server
@@ -37,7 +37,7 @@ claude mcp add zeph --transport http http://127.0.0.1:<port>/mcp \
 | Tool | Scope | What it does |
 |---|---|---|
 | `list_devices` | control | Every known device: serial, name, state, transports, battery. |
-| `get_device_state` | control | One device + its device-synced settings (brightness, device_name, mic_gain, audio_mode). |
+| `get_device_state` | control | One device + its device-synced settings (brightness, device_name, volume, `mic_gain` [labeled "Mic level"], `mic_agc`, `storage_backend`). |
 | `update_settings` | control | Write device-synced settings; per-setting outcome (synced / offline / validation error). |
 | `push_screen` | control | Push an ephemeral zui tree to a snapshot ref; optional `ttl_seconds` auto-clear. |
 | `notify` | control | Post on the device's notification ladder (badge -> modal). Prompt posts WAIT and return the user's answer. No app setup needed. |
@@ -54,22 +54,26 @@ Device state is also readable as resources: `zeph://devices`,
 Screens are JSON node trees. Every node is an object whose first key is `k`
 (the kind); children go in `c`. Text-bearing nodes use `t`.
 
-Kinds (the full registry): `screen, gap, text, title, eyebrow, big, list,
-row, btn, btnrow, chips, slider, segslider, ring, act, widget, vu, listen,
-spinner, picker, clock, applist, box, grid, stepper, tabs, toggle, select,
-section, dial, banner, progress, slot`.
+**The full per-kind registry lives in
+[references/widgets.md](references/widgets.md)** - all 36 kinds (incl. the
+`pageview`/`choice` modal-doc kinds + the `image` asset kind), every field that actually decodes on
+the device, a working example per kind, and an explicit streamable yes/no
+flag. Load it before composing anything beyond the recipes below. As of #328
+every content kind streams (chips/tabs/picker/select/dial/clock/widget/
+stepper via `opts`/`on`/`sel`/... keys; applist takes children); the one
+exception is `slot` (glance-composition only - never push it).
 
 Common keys: `t` text · `ic` icon name · `sub` subtitle · `id` id ·
-`v` value (uint) · `lyt` layout (1 = centered) · `cv` compact row variant ·
+`v` value (uint) · `lyt` layout (1 = centered) · `cv` row chevron ·
 `h` gap height px · `c` children.
 
-**Interactive attrs (wire v12 — modal `body` docs):**
+**Interactive attrs (wire v12/v13 — the v12 role/key/`lv` set + the v13 #358 ring/grid/row attrs; interactive value controls report on s6 `0x06` per widgets.md):**
 
 | Attr | On | Values | Meaning |
 |---|---|---|---|
 | `role` | `btn` | `submit` \| `dismiss` \| `event` \| `next` \| `prev` | `submit`/`dismiss` are TERMINAL (the modal resolves and your blocked `notify` call returns `{action, values, steps}`); `event` pings you and the modal stays (abort/progress); `next`/`prev` page locally, never reported |
 | `key` | `btn` | `up`, `down`, `up.double`, `down.double` | bind a physical button — the button renders the key's glyph; hold is never bindable (push-to-talk floor) |
-| `live` | `slider` `segslider` `toggle` `select` | `true` | stream value changes to you as widget events (debounced) instead of waiting for the terminal reply |
+| `live` | `slider` `segslider` `toggle` `select` | `true` | stream value changes to you as widget events (debounced) instead of waiting for the terminal reply (`select` reports the tapped option index) |
 | `advance` | `choice` | `true` | wizard auto-advance: picking an option acks and pages forward; terminal on the last page (the picked option id becomes the `action`) |
 
 Every value widget (`slider`/`segslider`/`toggle`/`choice`) carrying an `id`
@@ -78,10 +82,6 @@ terminal action. Button labels: one line, max 24 ASCII chars (18 when
 `key`-bound — the glyph reserves width); longer labels are rejected with the
 node id. Re-posting `notify` with a LIVE `id` updates that notification
 in place (no re-surface flash) — the progress/monitor pattern.
-
-Streamable catalog note: `choice` is the streamable picker. `chips`, `tabs`,
-`picker`, `select`, `dial`, `clock`, `widget`, `stepper` have no CBOR keys
-for their option/label arrays yet — don't stream them standalone.
 
 A face/full-screen push:
 
